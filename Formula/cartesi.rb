@@ -1,10 +1,10 @@
 require "language/node"
 
-class Sunodo < Formula
-  desc "Sunodo CLI"
-  homepage "https://github.com/sunodo/sunodo"
-  url "https://registry.npmjs.org/@sunodo/cli/-/cli-0.13.1.tgz"
-  sha256 "8e87db4970503df6f13b9b9a3dd05cc81eba182cf9464dbaebcb48f9ee064cf6"
+class Cartesi < Formula
+  desc "Cartesi CLI"
+  homepage "https://github.com/cartesi/cli"
+  url "https://registry.npmjs.org/@cartesi/cli/-/cli-0.14.0.tgz"
+  sha256 "81333a40e9a982cac90d219127f2faaa7a3e44f5cbb910aef96dcc313a89e56f"
   license "Apache-2.0"
 
   livecheck do
@@ -18,7 +18,7 @@ class Sunodo < Formula
     bin.install_symlink Dir["#{libexec}/bin/*"]
 
     # use node installed by the "node" formula instead of the PATH one
-    inreplace libexec/"lib/node_modules/@sunodo/cli/bin/run.js", "#!/usr/bin/env node", "#!#{Formula["node"].opt_bin}/node"
+    inreplace libexec/"lib/node_modules/@cartesi/cli/bin/run.js", "#!/usr/bin/env node", "#!#{Formula["node"].opt_bin}/node"
   end
 
   test do

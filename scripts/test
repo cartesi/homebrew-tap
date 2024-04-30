@@ -3,5 +3,5 @@
 set -ex
 
 brew update
-brew install Formula/sunodo.rb
+brew install Formula/cartesi.rb
 sunodo --help

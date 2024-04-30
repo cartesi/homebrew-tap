@@ -1,10 +1,7 @@
-# Sunodo Homebrew Tap
-
-Install the Sunodo CLI with:
+# Cartesi Homebrew Tap
 
 ```shell
-brew tap sunodo/tap
-brew install sunodo
+brew tap cartesi/tap
 ```
 
-For more information, visit https://docs.sunodo.io
+For more information, visit https://docs.cartesi.io
