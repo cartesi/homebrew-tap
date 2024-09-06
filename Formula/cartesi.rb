@@ -23,6 +23,6 @@ class Cartesi < Formula
   end
 
   test do
-    raise "Test not implemented."
+    assert_match version.to_s, shell_output("#{bin}/cartesi --version")
   end
 end
