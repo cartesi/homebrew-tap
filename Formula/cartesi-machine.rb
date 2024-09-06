@@ -5,6 +5,13 @@ class CartesiMachine < Formula
   sha256 "2d6ca78881b0a218aa9460d5cc7af7be51f9971b163305d6191039719568b5c3"
   license "LGPL-3.0-only"
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 cellar: :any,                 arm64_sonoma: "25e914e4d00ac8dd9211958dc76377c997da562c1595192ec4c0aa2eb9f8cffd"
+    sha256                               ventura:      "ac8b192a2feb8007a8b622d83b338e373c9f302f704dbd2f32ae29493e97c8a7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "054d277cb9f52eeb13d3978949aa26deb5caadda85287595dda3f56f6b6261be"
+  end
+
   depends_on "boost" => :build
   depends_on "pkg-config" => :build
   depends_on "libslirp"
