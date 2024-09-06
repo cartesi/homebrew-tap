@@ -1,7 +1,7 @@
 require "language/node"
 
 class Cartesi < Formula
-  desc "Cartesi CLI"
+  desc "CLI for developing Cartesi applications"
   homepage "https://github.com/cartesi/cli"
   url "https://registry.npmjs.org/@cartesi/cli/-/cli-0.16.1.tgz"
   sha256 "5ba91d5b6d74cde90aa78a1b2e102cd5978a264f02cf6746195e557a276c70b4"
