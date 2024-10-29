@@ -3,8 +3,8 @@ require "language/node"
 class Cartesi < Formula
   desc "CLI for developing Cartesi applications"
   homepage "https://github.com/cartesi/cli"
-  url "https://registry.npmjs.org/@cartesi/cli/-/cli-0.16.1.tgz"
-  sha256 "5ba91d5b6d74cde90aa78a1b2e102cd5978a264f02cf6746195e557a276c70b4"
+  url "https://registry.npmjs.org/@cartesi/cli/-/cli-1.5.0.tgz"
+  sha256 "2784f62fbb458c0b1d6cf99396fbbaa7be561e27849822944ba58974e7f44e9b"
   license "Apache-2.0"
 
   livecheck do
