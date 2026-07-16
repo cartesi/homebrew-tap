@@ -19,7 +19,7 @@ class Cartesi < Formula
 
     # use node installed by the "node" formula instead of the PATH one
     inreplace libexec/"lib/node_modules/@cartesi/cli/bin/run.js", "#!/usr/bin/env node",
-      "#!#{Formula["node"].opt_bin}/node"
+      "#!#{formula_opt_bin("node")}/node"
   end
 
   test do
