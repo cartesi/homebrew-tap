@@ -11,6 +11,12 @@ class Cartesi < Formula
     url :stable
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "127bc2adc8991539889558baa71b30bfb36ba0924e9d0ca2087e11e6fb7ec912"
+  end
+
   depends_on "node"
 
   def install
