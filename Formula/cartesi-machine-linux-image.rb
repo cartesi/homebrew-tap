@@ -9,9 +9,8 @@ class CartesiMachineLinuxImage < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/cartesi/tap"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "5dbfb76e39ea0749cb96be113bfdf546d94d53dc167acc433ae8dc8676aa7bbc"
-    sha256 cellar: :any_skip_relocation, ventura:      "096a8524db3dc659c957a0186cf6b34d95eff25e48325652e96cbad843406727"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "9a025f231e8f5a76bcdaca2ed1e284e1ac8f7996f219b7c6fbcc2d92206fcdee"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "ac3a16d05cdc90a34f7c4dd868cd91163c0ea0be5045d35ccb9cbe4318b8cca3"
   end
 
   def install
