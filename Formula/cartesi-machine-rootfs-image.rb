@@ -1,6 +1,11 @@
 class CartesiMachineRootfsImage < Formula
   desc "Rootfs image for the Cartesi Machine"
   homepage "https://github.com/cartesi/machine-guest-tools"
+
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "e6369a6525de798c1e63cb42cdbdac2c30d086744b408f063bb6f6e27ba25179"
+  end
   VERSION = "v0.18.0".freeze
   ROOTFS_IMAGE = "rootfs-tools.ext2".freeze
   url "https://github.com/cartesi/machine-guest-tools/releases/download/#{VERSION}/#{ROOTFS_IMAGE}"
