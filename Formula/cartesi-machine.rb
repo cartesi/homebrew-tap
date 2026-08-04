@@ -5,6 +5,11 @@ class CartesiMachine < Formula
   sha256 "44fc83cb08a1907e66ab225ccf421b0fdad3f145be35b9a9ffe561d3563e3eda"
   license "LGPL-3.0-only"
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "6deb844cb1bc9ff7e03f9b5175de71df51388686db215c44de0076a602d8a93d"
+  end
+
   depends_on "cartesi-machine-emulator"
   depends_on "cartesi-machine-linux-image"
   depends_on "cartesi-machine-rootfs-image"
