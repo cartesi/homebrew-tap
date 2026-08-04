@@ -5,6 +5,11 @@ class CartesiMachineEmulator < Formula
   sha256 "44fc83cb08a1907e66ab225ccf421b0fdad3f145be35b9a9ffe561d3563e3eda"
   license "LGPL-3.0-only"
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 arm64_tahoe: "fd39029fd1ff9b38effb8f80da94bf96fe53e2df81db48b834f518c1b10c5e3e"
+  end
+
   depends_on "boost" => :build
   depends_on "pkg-config" => :build
   depends_on "libomp"
