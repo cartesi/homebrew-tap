@@ -4,13 +4,7 @@ class CartesiMachineEmulator < Formula
   url "https://github.com/cartesi/machine-emulator/archive/refs/tags/v0.21.0.tar.gz"
   sha256 "44fc83cb08a1907e66ab225ccf421b0fdad3f145be35b9a9ffe561d3563e3eda"
   license "LGPL-3.0-only"
-  revision 1
-
-  bottle do
-    root_url "https://ghcr.io/v2/cartesi/tap"
-    sha256 arm64_tahoe:   "17884f95a498193147c668592000b7342d81fec93851b3713bd3bda69208835f"
-    sha256 arm64_sequoia: "61fa160b84c3d116d5003edbca53005f661cfee6053f155b4a33b23effabcffb"
-  end
+  revision 2
 
   depends_on "boost" => :build
   depends_on "llvm" => :build
