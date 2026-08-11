@@ -30,7 +30,11 @@ jobs:
 
       - run: brew test-bot --only-tap-syntax
 
-      - run: brew test-bot --only-formulae --root-url='https://ghcr.io/v2/cartesi/homebrew-tap'
+      # --only-json-tab keeps the install receipt out of the bottle tarball, which is
+      # what makes bottles reproducible across platforms. Without it, the formulae that
+      # ship no compiled code (the two images and the metapackage) get a distinct
+      # per-OS bottle instead of collapsing into a single `all:` one on `brew pr-pull`.
+      - run: brew test-bot --only-formulae --only-json-tab --root-url='https://ghcr.io/v2/cartesi/homebrew-tap'
         if: github.event_name == 'pull_request'
 
       - name: Upload bottles as artifact
