@@ -5,6 +5,12 @@ class Xgenext2fs < Formula
   sha256 "34bfc26a037def23b85b676912462a3d126a87ef15c66c212b3500650da44f9e"
   license "GPL-2.0-only"
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 cellar: :any, arm64_tahoe:   "9b5dee4622888f6a9864b4b62a51e74a6f74091fea3414964fa9d2b2d598d2f9"
+    sha256 cellar: :any, arm64_sequoia: "813832d54d03fb243d1fdb2063ec5721cb1a36efedb86d83e7b6676f708cec75"
+  end
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libarchive"
