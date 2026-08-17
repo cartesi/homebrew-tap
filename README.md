@@ -5,10 +5,11 @@ kernel and rootfs images, the Cartesi CLI, and supporting build tools.
 
 ## Installation
 
-Add the tap once:
+Add the tap and trust it:
 
 ```shell
 brew tap cartesi/tap
+brew trust cartesi/tap
 ```
 
 Then install any of the formulae below:
@@ -17,11 +18,34 @@ Then install any of the formulae below:
 brew install cartesi-machine
 ```
 
-You can also install without tapping first, by using the fully qualified name:
+You can also use the fully qualified name:
 
 ```shell
 brew install cartesi/tap/cartesi-machine
 ```
+
+### About `brew trust`
+
+Since [Homebrew 6.0.0](https://brew.sh/2026/06/11/homebrew-6.0.0/), third-party taps must be
+explicitly trusted before Homebrew will evaluate any of their code. Tapping alone is not enough —
+until you trust it, Homebrew ignores this tap's formulae and reports:
+
+```
+Warning: The following taps are not trusted: cartesi/tap
+Homebrew is currently ignoring formulae, casks and commands from these taps because tap trust is
+required.
+```
+
+Trusting is a deliberate step, not a prompt you can click through, because a tap can run arbitrary
+unsandboxed Ruby on your machine. If you would rather not trust the whole tap, trust individual
+formulae instead:
+
+```shell
+brew trust --formula cartesi/tap/cartesi-machine
+```
+
+Use `brew trust` to list what you have trusted and `brew untrust cartesi/tap` to revoke it. On
+Homebrew 5.x and earlier there is no `brew trust` command and no trust step is needed.
 
 ## Formulae
 
@@ -104,7 +128,10 @@ brew audit --strict --online ./Formula/<formula>.rb
 
 ## Troubleshooting
 
-- **`Error: No available formula with the name ...`** — run `brew update` to refresh the tap.
+- **`Warning: The following taps are not trusted`**, or formulae from the tap not being found at all
+  on Homebrew 6.0+ — run `brew trust cartesi/tap`. See [About `brew trust`](#about-brew-trust).
+- **`Error: No available formula with the name ...`** — run `brew update` to refresh the tap, and
+  check the tap is trusted.
 - **A bottle is missing for your platform** — pass `--build-from-source` to build locally.
 - **Stale images after an upgrade** — `brew reinstall cartesi-machine-linux-image
   cartesi-machine-rootfs-image` recreates the symlinks under `etc/cartesi/images`.
