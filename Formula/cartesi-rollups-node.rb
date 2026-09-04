@@ -10,6 +10,12 @@ class CartesiRollupsNode < Formula
     regex(/^v?(\d+(?:\.\d+)+(?:-alpha\.\d+)?)$/i)
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 cellar: :any, arm64_tahoe:   "4f403018e8acec663cfd4b498d499b85a05c15be4d516490fe0d67ef11b26b74"
+    sha256 cellar: :any, arm64_sequoia: "0252680120275a942b194412fd3afeb13e28760c54ffafffa74032b89275c570"
+  end
+
   depends_on "go" => :build
   # 2.0.0-alpha.x builds against the 0.20 C API (machine-c-api.h), which the
   # current cartesi-machine-emulator (0.21) renamed and changed.
