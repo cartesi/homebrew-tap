@@ -1,8 +1,8 @@
 class CartesiRollupsNode < Formula
   desc "Reference implementation of the Cartesi Rollups Node"
   homepage "https://github.com/cartesi/rollups-node"
-  url "https://github.com/cartesi/rollups-node/archive/refs/tags/v2.0.0-alpha.12.tar.gz"
-  sha256 "8fcf4d775c7637b7698e642c70c31b7c16af28b77c118207a90d93da6187fc9a"
+  url "https://github.com/cartesi/rollups-node/archive/refs/tags/v2.0.0-alpha.13.tar.gz"
+  sha256 "05a4ba96c3c69cd802a93c909479dce69d70e4adebe39cdd59cabce26f21ef01"
   license "Apache-2.0"
 
   livecheck do
@@ -10,22 +10,14 @@ class CartesiRollupsNode < Formula
     regex(/^v?(\d+(?:\.\d+)+(?:-alpha\.\d+)?)$/i)
   end
 
-  bottle do
-    root_url "https://ghcr.io/v2/cartesi/tap"
-    sha256 cellar: :any, arm64_tahoe:   "4f403018e8acec663cfd4b498d499b85a05c15be4d516490fe0d67ef11b26b74"
-    sha256 cellar: :any, arm64_sequoia: "0252680120275a942b194412fd3afeb13e28760c54ffafffa74032b89275c570"
-  end
-
   depends_on "go" => :build
-  # 2.0.0-alpha.x builds against the 0.20 C API (machine-c-api.h), which the
-  # current cartesi-machine-emulator (0.21) renamed and changed.
-  depends_on "cartesi-machine-emulator@0.20"
+  depends_on "cartesi-machine-emulator"
 
   def install
-    emulator = Formula["cartesi-machine-emulator@0.20"]
+    emulator = Formula["cartesi-machine-emulator"]
 
-    # The emulator is keg-only, so point cgo at its headers and libraries and
-    # bake an rpath so the node binaries find libcartesi at runtime.
+    # Point cgo at the emulator's headers and libraries and bake an rpath to its
+    # opt prefix so the node binaries find libcartesi at runtime.
     ENV["CGO_CFLAGS"] = "-I#{emulator.opt_include}"
     ENV["CGO_LDFLAGS"] = "-L#{emulator.opt_lib}"
     ldflags = %W[
@@ -34,10 +26,10 @@ class CartesiRollupsNode < Formula
       -r #{emulator.opt_lib}
     ]
 
-    # These link against libcartesi and spawn `cartesi-jsonrpc-machine`, which
-    # lives in the keg-only emulator and is therefore not on PATH. Build them
-    # into bin, then let env_script_all_files move everything currently in bin
-    # to libexec/bin and leave wrappers in bin that prepend the emulator's bin.
+    # These link against libcartesi and spawn `cartesi-jsonrpc-machine`. Build
+    # them into bin, then let env_script_all_files move everything currently in
+    # bin to libexec/bin and leave wrappers in bin that prepend the emulator's
+    # bin, so the server is found even when the Homebrew prefix is not on PATH.
     machine_binaries = %w[node advancer validator]
     machine_binaries.each do |name|
       system "go", "build", *std_go_args(ldflags:, output: bin/"cartesi-rollups-#{name}"),
@@ -55,7 +47,7 @@ class CartesiRollupsNode < Formula
 
   test do
     assert_match "cartesi-rollups-cli version #{version}", shell_output("#{bin}/cartesi-rollups-cli --version")
-    # Exercises the wrapper and dynamic linking against the keg-only emulator.
+    # Exercises the wrapper and dynamic linking against the emulator.
     assert_match "cartesi-rollups-node version #{version}", shell_output("#{bin}/cartesi-rollups-node --version")
     assert_match "cartesi-rollups-advancer version #{version}",
                  shell_output("#{bin}/cartesi-rollups-advancer --version")
