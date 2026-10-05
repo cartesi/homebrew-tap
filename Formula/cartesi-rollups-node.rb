@@ -10,6 +10,12 @@ class CartesiRollupsNode < Formula
     regex(/^v?(\d+(?:\.\d+)+(?:-alpha\.\d+)?)$/i)
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 cellar: :any, arm64_tahoe:   "f67acb24bb1d92e94e9f59d5c8b8fdb9aff978ceaa4bb7ec09f60b84cf22dab7"
+    sha256 cellar: :any, arm64_sequoia: "3943faaafa1c85db9a4cab0bdaacd9a855d28ee056da1bb9ceb47522474a922e"
+  end
+
   depends_on "go" => :build
   depends_on "cartesi-machine-emulator"
 
