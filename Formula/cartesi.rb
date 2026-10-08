@@ -16,8 +16,7 @@ class Cartesi < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/cartesi/tap"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_tahoe: "127bc2adc8991539889558baa71b30bfb36ba0924e9d0ca2087e11e6fb7ec912"
+    sha256 cellar: :any_skip_relocation, all: "0e2a1334ddec9ad5661dc1a498427e179dfb697fa5855c92823cd59340493699"
   end
 
   depends_on "cartesi-machine"
