@@ -1,15 +1,10 @@
 class CartesiMachineLinuxImage < Formula
   desc "Kernel image for the Cartesi Machine"
-  homepage "https://github.com/cartesi/machine-linux-image"
-  url "https://github.com/cartesi/machine-linux-image/releases/download/v0.21.0/linux-6.5.13-ctsi-2-v0.21.0.bin"
-  sha256 "5c900060da2db2bfa84cd39cd9cd722988c83c42225f3cac55f2d3157e48f32f"
+  homepage "https://github.com/cartesi/linux"
+  url "https://github.com/cartesi/linux/releases/download/v6.18.38-ctsi-1-test3/linux-6.18.38-ctsi-1.bin"
+  version "0.22.0"
+  sha256 "8e516c496e55089df2d8db9f5d047a84967e0e29cf71b2c4a7f9e5305e58dcc2"
   license "GPL-2.0-only"
-  revision 2
-
-  bottle do
-    root_url "https://ghcr.io/v2/cartesi/tap"
-    sha256 cellar: :any_skip_relocation, all: "f8d1d2fd089d2ff4300aecc114337a89679571090a98d02fa93ac6a6fdef0751"
-  end
 
   def install
     linux_image = File.basename(stable.url)

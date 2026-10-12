@@ -55,7 +55,8 @@ Homebrew 5.x and earlier there is no `brew trust` command and no trust step is n
 | [`cartesi-machine`](Formula/cartesi-machine.rb) | Metapackage that pulls in the emulator plus the Linux and rootfs images |
 | [`cartesi-machine-emulator`](Formula/cartesi-machine-emulator.rb) | Off-chain implementation of the Cartesi Machine ([cartesi/machine-emulator](https://github.com/cartesi/machine-emulator)) |
 | [`cartesi-machine-emulator@0.20`](Formula/cartesi-machine-emulator@0.20.rb) | Keg-only emulator 0.20, for software that still targets its C API |
-| [`cartesi-machine-linux-image`](Formula/cartesi-machine-linux-image.rb) | Kernel image for the Cartesi Machine ([cartesi/machine-linux-image](https://github.com/cartesi/machine-linux-image)) |
+| [`cartesi-machine-emulator@0.21`](Formula/cartesi-machine-emulator@0.21.rb) | Keg-only emulator 0.21, for software that still targets its C API |
+| [`cartesi-machine-linux-image`](Formula/cartesi-machine-linux-image.rb) | Kernel image for the Cartesi Machine ([cartesi/linux](https://github.com/cartesi/linux)) |
 | [`cartesi-machine-rootfs-image`](Formula/cartesi-machine-rootfs-image.rb) | Rootfs image for the Cartesi Machine ([cartesi/machine-guest-tools](https://github.com/cartesi/machine-guest-tools)) |
 | [`cartesi-rollups-node`](Formula/cartesi-rollups-node.rb) | Reference implementation of the Cartesi Rollups Node ([cartesi/rollups-node](https://github.com/cartesi/rollups-node)) |
 | [`xgenext2fs`](Formula/xgenext2fs.rb) | Ext2 filesystem generator for embedded systems ([cartesi/genext2fs](https://github.com/cartesi/genext2fs)) |
@@ -89,7 +90,7 @@ cartesi-rollups-node --version
 cartesi-rollups-cli --help
 ```
 
-`cartesi-rollups-node` builds against the current `cartesi-machine-emulator` and pulls it in.
+`cartesi-rollups-node` builds against the keg-only `cartesi-machine-emulator@0.21` and pulls it in.
 Running the node still needs a PostgreSQL database and an Ethereum JSON-RPC endpoint, configured
 through `CARTESI_*` environment variables as described in the
 [node documentation](https://github.com/cartesi/rollups-node).

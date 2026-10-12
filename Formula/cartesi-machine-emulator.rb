@@ -1,16 +1,10 @@
 class CartesiMachineEmulator < Formula
   desc "Off-chain implementation of the Cartesi Machine"
   homepage "https://github.com/cartesi/machine-emulator"
-  url "https://github.com/cartesi/machine-emulator/archive/refs/tags/v0.21.0.tar.gz"
-  sha256 "44fc83cb08a1907e66ab225ccf421b0fdad3f145be35b9a9ffe561d3563e3eda"
+  url "https://github.com/cartesi/machine-emulator/archive/refs/tags/v0.22.0-test2.tar.gz"
+  version "0.22.0"
+  sha256 "0ab1d6c07f0a1d1cb075f1c0bc3d4969456d1df377f0b9a6cb718fe7143ff05c"
   license "LGPL-3.0-only"
-  revision 2
-
-  bottle do
-    root_url "https://ghcr.io/v2/cartesi/tap"
-    sha256 arm64_tahoe:   "324b1100156b2b36031eaec42dd981821709d6dab61a5f8f97d91d936b678e7b"
-    sha256 arm64_sequoia: "d13206968a6c69255cd8cabbb90dbc8748b144a9e9c288807cd1f4b0654b327f"
-  end
 
   depends_on "boost" => :build
   depends_on "llvm" => :build
@@ -20,8 +14,8 @@ class CartesiMachineEmulator < Formula
   depends_on "lua@5.4"
 
   patch :p1 do
-    url "https://github.com/cartesi/machine-emulator/releases/download/v0.21.0/add-generated-files.diff"
-    sha256 "596c5e171cac2e784aef01a26d47d19964b8593f74e37e863e0fcc1c9446be23"
+    url "https://github.com/cartesi/machine-emulator/releases/download/v0.22.0-test2/add-generated-files.diff"
+    sha256 "d0014275dd190127988561e821a633f36dfbc65cfdd299744f73d7ca443398dd"
   end
 
   def install

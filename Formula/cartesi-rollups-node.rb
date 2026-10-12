@@ -4,26 +4,24 @@ class CartesiRollupsNode < Formula
   url "https://github.com/cartesi/rollups-node/archive/refs/tags/v2.0.0-alpha.13.tar.gz"
   sha256 "05a4ba96c3c69cd802a93c909479dce69d70e4adebe39cdd59cabce26f21ef01"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url :stable
     regex(/^v?(\d+(?:\.\d+)+(?:-alpha\.\d+)?)$/i)
   end
 
-  bottle do
-    root_url "https://ghcr.io/v2/cartesi/tap"
-    sha256 cellar: :any, arm64_tahoe:   "f67acb24bb1d92e94e9f59d5c8b8fdb9aff978ceaa4bb7ec09f60b84cf22dab7"
-    sha256 cellar: :any, arm64_sequoia: "3943faaafa1c85db9a4cab0bdaacd9a855d28ee056da1bb9ceb47522474a922e"
-  end
-
   depends_on "go" => :build
-  depends_on "cartesi-machine-emulator"
+  # 2.0.0-alpha.13 targets the emulator 0.21 (its Dockerfile pins
+  # EMULATOR_VERSION 0.21.0); 0.22 changed the C API and the stored machine
+  # format, so build against the keg-only 0.21 formula.
+  depends_on "cartesi-machine-emulator@0.21"
 
   def install
-    emulator = Formula["cartesi-machine-emulator"]
+    emulator = Formula["cartesi-machine-emulator@0.21"]
 
-    # Point cgo at the emulator's headers and libraries and bake an rpath to its
-    # opt prefix so the node binaries find libcartesi at runtime.
+    # The emulator is keg-only, so point cgo at its headers and libraries and
+    # bake an rpath so the node binaries find libcartesi at runtime.
     ENV["CGO_CFLAGS"] = "-I#{emulator.opt_include}"
     ENV["CGO_LDFLAGS"] = "-L#{emulator.opt_lib}"
     ldflags = %W[
