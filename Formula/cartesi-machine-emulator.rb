@@ -1,9 +1,8 @@
 class CartesiMachineEmulator < Formula
   desc "Off-chain implementation of the Cartesi Machine"
   homepage "https://github.com/cartesi/machine-emulator"
-  url "https://github.com/cartesi/machine-emulator/archive/refs/tags/v0.22.0-test2.tar.gz"
-  version "0.22.0"
-  sha256 "0ab1d6c07f0a1d1cb075f1c0bc3d4969456d1df377f0b9a6cb718fe7143ff05c"
+  url "https://github.com/cartesi/machine-emulator/archive/refs/tags/v0.22.0.tar.gz"
+  sha256 "7e82de5bfe213b9ca821a65c79a59dc593fff47ed6e8cf5accf36e9bb7b913fe"
   license "LGPL-3.0-only"
 
   depends_on "boost" => :build
@@ -14,8 +13,8 @@ class CartesiMachineEmulator < Formula
   depends_on "lua@5.4"
 
   patch :p1 do
-    url "https://github.com/cartesi/machine-emulator/releases/download/v0.22.0-test2/add-generated-files.diff"
-    sha256 "d0014275dd190127988561e821a633f36dfbc65cfdd299744f73d7ca443398dd"
+    url "https://github.com/cartesi/machine-emulator/releases/download/v0.22.0/add-generated-files.diff"
+    sha256 "f9050dd452caf8762aad0b74b59d5601aa64f44433dc691edc254b6e3f90d168"
   end
 
   def install
