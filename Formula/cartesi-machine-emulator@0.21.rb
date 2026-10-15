@@ -10,6 +10,12 @@ class CartesiMachineEmulatorAT021 < Formula
     regex(/^v?(0\.21(?:\.\d+)+)$/i)
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 cellar: :any, arm64_tahoe:   "a4f75beee1b7cb6402523c982e33bbe0caf9e6dc8fd678a74bab818fe4d7e339"
+    sha256 cellar: :any, arm64_sequoia: "1b783953d2433c653a94587ddc9d7dba08dcc24177e5d13a8bcc9fc190ad1c3c"
+  end
+
   # Versioned emulator kept for consumers that still target the 0.21 C API,
   # namely cartesi-rollups-node. Keg-only so it never shadows the current
   # cartesi-machine-emulator formula.
