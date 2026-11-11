@@ -90,7 +90,7 @@ cartesi-rollups-node --version
 cartesi-rollups-cli --help
 ```
 
-`cartesi-rollups-node` builds against the keg-only `cartesi-machine-emulator@0.21` and pulls it in.
+`cartesi-rollups-node` builds against `cartesi-machine-emulator` and pulls it in.
 Running the node still needs a PostgreSQL database and an Ethereum JSON-RPC endpoint, configured
 through `CARTESI_*` environment variables as described in the
 [node documentation](https://github.com/cartesi/rollups-node).
