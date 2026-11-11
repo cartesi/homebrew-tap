@@ -10,6 +10,12 @@ class CartesiRollupsNode < Formula
     regex(/^v?(\d+(?:\.\d+)+(?:-alpha\.\d+)?)$/i)
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 cellar: :any, arm64_tahoe:   "80727da8ec7e6f511bf2a06216699ed436bb42151366eaf7839018b255aa82df"
+    sha256 cellar: :any, arm64_sequoia: "60eb7c25888a8514ea81ac66cbdd0f64700a1897d777ddeceb9c79196ddd67f8"
+  end
+
   depends_on "go" => :build
   # 2.0.0-alpha.14 targets the emulator 0.22 (its Dockerfile pins
   # EMULATOR_VERSION 0.22.0).
