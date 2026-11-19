@@ -3,8 +3,8 @@ require "language/node"
 class Cartesi < Formula
   desc "CLI for developing Cartesi applications"
   homepage "https://github.com/cartesi/cli"
-  url "https://registry.npmjs.org/@cartesi/cli/-/cli-2.0.0-alpha.38.tgz"
-  sha256 "08f650f78d29cb8e1716bc1648e0918b95c4529f5416a1579f2c1fc969fc4c66"
+  url "https://registry.npmjs.org/@cartesi/cli/-/cli-2.0.0-alpha.42.tgz"
+  sha256 "c930e0254a40b325d156ba401f754acb1d99f34f54c1522c67c24924433992f6"
   license "Apache-2.0"
 
   livecheck do
@@ -12,11 +12,6 @@ class Cartesi < Formula
     strategy :json do |json|
       json.dig("dist-tags", "alpha")
     end
-  end
-
-  bottle do
-    root_url "https://ghcr.io/v2/cartesi/tap"
-    sha256 cellar: :any_skip_relocation, all: "0e2a1334ddec9ad5661dc1a498427e179dfb697fa5855c92823cd59340493699"
   end
 
   depends_on "cartesi-machine"
