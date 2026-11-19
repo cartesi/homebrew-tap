@@ -14,6 +14,11 @@ class Cartesi < Formula
     end
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    sha256 cellar: :any_skip_relocation, all: "092502521961679ff4e729819ba4b8fd84ab0e1c3b2ee0b5c64726cc19f01eb5"
+  end
+
   depends_on "cartesi-machine"
   depends_on "cartesi-rollups-node"
   depends_on "node"
