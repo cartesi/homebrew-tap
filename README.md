@@ -83,6 +83,9 @@ brew install cartesi
 cartesi --version
 ```
 
+`cartesi` runs the keg-only `cartesi-machine-emulator@0.22`, the emulator version it requires,
+even when a newer `cartesi-machine` is installed.
+
 Install the Rollups Node and its services:
 
 ```shell
