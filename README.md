@@ -151,12 +151,30 @@ Formula changes are made via pull request against `main`.
 Do not commit `bottle do` checksums by hand — `brew pr-pull` generates them from the bottles CI
 actually built.
 
-To test a local change before opening a pull request:
+To test a change before opening a pull request, check it out in the tapped copy of this repository
+and refer to the formula by name. Current Homebrew no longer loads formulae from file paths
+(`brew install ./Formula/<formula>.rb` fails with `Invalid tap name`).
 
 ```shell
-brew install --build-from-source ./Formula/<formula>.rb
-brew test ./Formula/<formula>.rb
-brew audit --strict --online ./Formula/<formula>.rb
+brew tap cartesi/tap
+cd "$(brew --repository cartesi/tap)"
+git fetch origin <branch>
+git checkout FETCH_HEAD
+```
+
+`HOMEBREW_NO_AUTO_UPDATE=1` keeps `brew` from updating the tap back to `main` while you test:
+
+```shell
+HOMEBREW_NO_AUTO_UPDATE=1 brew install --build-from-source cartesi/tap/<formula>
+HOMEBREW_NO_AUTO_UPDATE=1 brew test cartesi/tap/<formula>
+HOMEBREW_NO_AUTO_UPDATE=1 brew audit --strict --online cartesi/tap/<formula>
+```
+
+Formulae you edit in place in that checkout are picked up the same way. When you are done, return
+the tap to `main`:
+
+```shell
+git -C "$(brew --repository cartesi/tap)" checkout main
 ```
 
 ## Troubleshooting
