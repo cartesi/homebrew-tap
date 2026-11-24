@@ -10,6 +10,13 @@ class CartesiSlingNode < Formula
     regex(/^v?(\d+(?:\.\d+)+(?:-alpha\.\d+)?)$/i)
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    manifest_sha256 "763e7ff3ed70916d58488da4f372706393290e8afa2134ab8520c986ffe512c6"
+    sha256 cellar: :any, arm64_tahoe:   "babf9d223e4a7665ea408abbe29a60f4d00dca243c677d33ef756e02b0883511"
+    sha256 cellar: :any, arm64_sequoia: "3019a460619ff3638667ee474e222c4c8450829be01541c7b15a7c11b3d1022c"
+  end
+
   # 3.0.0-alpha.6 pins the emulator 0.22.0 (machine/script/cartesi-machine-source.sh)
   # and links libcartesi statically, so the keg-only 0.22 formula is only
   # needed to build.
