@@ -60,6 +60,7 @@ Homebrew 5.x and earlier there is no `brew trust` command and no trust step is n
 | [`cartesi-machine-linux-image`](Formula/cartesi-machine-linux-image.rb) | Kernel image for the Cartesi Machine ([cartesi/linux](https://github.com/cartesi/linux)) |
 | [`cartesi-machine-rootfs-image`](Formula/cartesi-machine-rootfs-image.rb) | Rootfs image for the Cartesi Machine ([cartesi/machine-guest-tools](https://github.com/cartesi/machine-guest-tools)) |
 | [`cartesi-rollups-node`](Formula/cartesi-rollups-node.rb) | Reference implementation of the Cartesi Rollups Node ([cartesi/rollups-node](https://github.com/cartesi/rollups-node)) |
+| [`cartesi-sling-node`](Formula/cartesi-sling-node.rb) | Dave PRT validator node for Cartesi Rollups applications ([cartesi/dave](https://github.com/cartesi/dave)) |
 | [`xgenext2fs`](Formula/xgenext2fs.rb) | Ext2 filesystem generator for embedded systems ([cartesi/genext2fs](https://github.com/cartesi/genext2fs)) |
 
 `cartesi-machine` is the recommended entry point: it is a metapackage with no files of its own that
@@ -98,6 +99,18 @@ cartesi-rollups-cli --help
 Running the node still needs a PostgreSQL database and an Ethereum JSON-RPC endpoint, configured
 through `CARTESI_*` environment variables as described in the
 [node documentation](https://github.com/cartesi/rollups-node).
+
+Install the Dave PRT validator node:
+
+```shell
+brew install cartesi-sling-node
+cartesi-sling-node --help
+```
+
+`cartesi-sling-node` links `cartesi-machine-emulator@0.22` statically, so the emulator is only needed
+to build it. Running the node needs an Ethereum JSON-RPC endpoint, a funded signer and the
+application's machine image, configured through flags or `CARTESI_SLING_*` environment variables as
+described in the [node documentation](https://github.com/cartesi/dave/tree/main/cartesi-rollups/node).
 
 The image formulae install their payloads into `$(brew --prefix)/etc/cartesi/images`, symlinked as
 `linux.bin` and `rootfs.ext2`. The emulator is configured at build time to look there, so it picks
