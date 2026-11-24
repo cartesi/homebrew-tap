@@ -8,6 +8,12 @@ class CartesiMachineRootfsImage < Formula
   sha256 "2ebb06d50f23f969b55aaf99274e0ddb842e710414de7b26cb8cbae834f56b90"
   license "GPL-2.0-only"
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    manifest_sha256 "21520845de7e9fb500e6b18d6de7609521b13620d1db1779af1647663cd45c5a"
+    sha256 cellar: :any_skip_relocation, all: "84c07eb06e2131c2fe1d09f9190067db16a23fc4e0646bd6d44f87d202d29b93"
+  end
+
   def install
     rootfs_image = File.basename(stable.url)
     share.install rootfs_image
