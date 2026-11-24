@@ -151,30 +151,31 @@ Formula changes are made via pull request against `main`.
 Do not commit `bottle do` checksums by hand — `brew pr-pull` generates them from the bottles CI
 actually built.
 
-To test a change before opening a pull request, check it out in the tapped copy of this repository
-and refer to the formula by name. Current Homebrew no longer loads formulae from file paths
+To test a change before opening a pull request, copy the formula into a scratch local tap and
+refer to it by name. Current Homebrew no longer loads formulae from file paths
 (`brew install ./Formula/<formula>.rb` fails with `Invalid tap name`).
 
 ```shell
-brew tap cartesi/tap
-cd "$(brew --repository cartesi/tap)"
-git fetch origin <branch>
-git checkout FETCH_HEAD
+brew tap-new cartesi/local
+brew trust cartesi/local
+cp Formula/<formula>.rb "$(brew --repository cartesi/local)/Formula/"
 ```
 
-`HOMEBREW_NO_AUTO_UPDATE=1` keeps `brew` from updating the tap back to `main` while you test:
+Copy only the formulae you changed. Their dependencies still resolve from `cartesi/tap`, but a
+formula present in both taps makes its bare name ambiguous, and Homebrew refuses it.
 
 ```shell
-HOMEBREW_NO_AUTO_UPDATE=1 brew install --build-from-source cartesi/tap/<formula>
-HOMEBREW_NO_AUTO_UPDATE=1 brew test cartesi/tap/<formula>
-HOMEBREW_NO_AUTO_UPDATE=1 brew audit --strict --online cartesi/tap/<formula>
+brew install --build-from-source cartesi/local/<formula>
+brew test cartesi/local/<formula>
+brew audit --strict --online cartesi/local/<formula>
 ```
 
-Formulae you edit in place in that checkout are picked up the same way. When you are done, return
-the tap to `main`:
+After further edits, copy the file again before rerunning. When you are done, remove the test install
+and the tap, so later installs come from `cartesi/tap`:
 
 ```shell
-git -C "$(brew --repository cartesi/tap)" checkout main
+brew uninstall cartesi/local/<formula>
+brew untap cartesi/local
 ```
 
 ## Troubleshooting
