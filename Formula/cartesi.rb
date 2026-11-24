@@ -6,6 +6,7 @@ class Cartesi < Formula
   url "https://registry.npmjs.org/@cartesi/cli/-/cli-2.0.0-alpha.42.tgz"
   sha256 "c930e0254a40b325d156ba401f754acb1d99f34f54c1522c67c24924433992f6"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url "https://registry.npmjs.org/@cartesi/cli"
@@ -14,19 +15,21 @@ class Cartesi < Formula
     end
   end
 
-  bottle do
-    root_url "https://ghcr.io/v2/cartesi/tap"
-    sha256 cellar: :any_skip_relocation, all: "092502521961679ff4e729819ba4b8fd84ab0e1c3b2ee0b5c64726cc19f01eb5"
-  end
-
-  depends_on "cartesi-machine"
+  # 2.0.0-alpha.42 requires cartesi-machine ^0.22.0 and runs whichever
+  # `cartesi-machine` is first on PATH, so pin the keg-only 0.22 emulator and
+  # put it first on PATH below instead of depending on cartesi-machine.
+  depends_on "cartesi-machine-emulator@0.22"
+  depends_on "cartesi-machine-linux-image"
+  depends_on "cartesi-machine-rootfs-image"
   depends_on "cartesi-rollups-node"
   depends_on "node"
   depends_on "xgenext2fs"
 
   def install
     system "npm", "install", *std_npm_args
-    bin.install_symlink Dir["#{libexec}/bin/*"]
+    libexec.glob("bin/*").each do |f|
+      (bin/f.basename).write_env_script f, PATH: "#{formula_opt_bin("cartesi-machine-emulator@0.22")}:$PATH"
+    end
 
     # use node installed by the "node" formula instead of the PATH one
     inreplace libexec/"lib/node_modules/@cartesi/cli/dist/index.js", "#!/usr/bin/env node",
@@ -35,5 +38,7 @@ class Cartesi < Formula
 
   test do
     assert_match version.to_s, shell_output("#{bin}/cartesi --version")
+    # The wrapper must put the 0.22 emulator ahead of any newer cartesi-machine.
+    assert_match formula_opt_bin("cartesi-machine-emulator@0.22").to_s, (bin/"cartesi").read
   end
 end
