@@ -15,8 +15,6 @@ class CartesiSlingNode < Formula
   # needed to build.
   depends_on "cartesi-machine-emulator@0.22" => :build
   depends_on "cmake" => :build # aws-lc-sys
-  # Generates the contract bindings, which upstream does not commit.
-  depends_on "foundry" => :build
   depends_on "rust" => :build
   # The static libcartesi.a from the formula above references these.
   depends_on "libomp"
@@ -24,14 +22,42 @@ class CartesiSlingNode < Formula
 
   uses_from_macos "llvm" => :build # libclang for bindgen
 
-  # Compiled contracts published with the release. Binding them with
-  # `forge bind --skip-build` avoids compiling the contracts, which would need
-  # the machine/step submodule (absent from the source tarball), the soldeer
-  # dependencies and solc 0.8.30. It also keeps enums as uint8, as upstream's
-  # pinned forge 1.5.1 generates them and the node's code expects.
+  # Compiled contracts published with the release, from which the contract
+  # bindings (generated code upstream does not commit) are made. Binding them
+  # with `forge bind --skip-build` avoids compiling the contracts, which would
+  # need the machine/step submodule (absent from the source tarball), the
+  # soldeer dependencies and solc.
   resource "contract-artifacts" do
     url "https://github.com/cartesi/dave/releases/download/v3.0.0-alpha.6/cartesi-rollups-prt-3.0.0-alpha.6-contract-artifacts.tar.gz"
     sha256 "6938b679cddeef51becc5ca512fa9e2d0dfb0a55686985b2803e1ce7ba004ad4"
+  end
+
+  # The forge release upstream pins (FOUNDRY_VERSION in the justfile). Binding
+  # the artifacts with it reproduces upstream's bindings byte for byte; the
+  # newer Homebrew foundry generates code that needs a newer alloy-sol-types
+  # than Cargo.lock pins (`SolEventInterface::decode_raw_log_with_config`), so
+  # it does not compile.
+  resource "forge" do
+    on_macos do
+      on_arm do
+        url "https://github.com/foundry-rs/foundry/releases/download/v1.5.1/foundry_v1.5.1_darwin_arm64.tar.gz"
+        sha256 "b3bf1752be066e0877911721e0624058171c88fc5616e228937fe4620b41c40d"
+      end
+      on_intel do
+        url "https://github.com/foundry-rs/foundry/releases/download/v1.5.1/foundry_v1.5.1_darwin_amd64.tar.gz"
+        sha256 "a416e79c26d32cd37316232f790b3a1bdeae4dfae09d82627d7a1ace4c281848"
+      end
+    end
+    on_linux do
+      on_arm do
+        url "https://github.com/foundry-rs/foundry/releases/download/v1.5.1/foundry_v1.5.1_linux_arm64.tar.gz"
+        sha256 "cccf28bdf202289e837a9e21ed213b2b80dc1e806e12f1717bc98a44315c331e"
+      end
+      on_intel do
+        url "https://github.com/foundry-rs/foundry/releases/download/v1.5.1/foundry_v1.5.1_linux_amd64.tar.gz"
+        sha256 "73640b01bd9ed29fdb4965085099371f8cf0dbbec3e2086cf54564efc4dcfe88"
+      end
+    end
   end
 
   def install
@@ -39,6 +65,7 @@ class CartesiSlingNode < Formula
       (buildpath/"prt/contracts").install "prt/contracts/out"
       (buildpath/"cartesi-rollups/contracts").install "cartesi-rollups/contracts/out"
     end
+    resource("forge").stage { (buildpath/"forge").install "forge" }
 
     # Same selections and flags as script/contract-bindings.sh.
     {
@@ -46,7 +73,7 @@ class CartesiSlingNode < Formula
       "cartesi-rollups/contracts" => "^(I?DaveConsensus|I?DaveAppFactory)$",
     }.each do |dir, select|
       cd dir do
-        system "forge", "bind", "--skip-build", "--alloy", "--alloy-version", "2",
+        system buildpath/"forge/forge", "bind", "--skip-build", "--alloy", "--alloy-version", "2",
                "--select", select, "--module", "--bindings-path", "./bindings-rs/src/contract",
                "--skip-extra-derives", "--root", "."
       end
