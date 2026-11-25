@@ -15,6 +15,12 @@ class Cartesi < Formula
     end
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/cartesi/tap"
+    manifest_sha256 "3f73c28aa62047e9091fd0768a4bfaacd5f6ceb84a5cc03e5ad81e003a45d0b9"
+    sha256 cellar: :any_skip_relocation, all: "f836a3138f1a2e0f757a1f63c00ce4fd1c7e9d0e6e143701f19ceef932df90a3"
+  end
+
   # 2.0.0-alpha.42 requires cartesi-machine ^0.22.0 and runs whichever
   # `cartesi-machine` is first on PATH, so pin the keg-only 0.22 emulator and
   # put it first on PATH below instead of depending on cartesi-machine.
