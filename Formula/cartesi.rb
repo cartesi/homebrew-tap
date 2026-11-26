@@ -3,10 +3,9 @@ require "language/node"
 class Cartesi < Formula
   desc "CLI for developing Cartesi applications"
   homepage "https://github.com/cartesi/cli"
-  url "https://registry.npmjs.org/@cartesi/cli/-/cli-2.0.0-alpha.42.tgz"
-  sha256 "c930e0254a40b325d156ba401f754acb1d99f34f54c1522c67c24924433992f6"
+  url "https://registry.npmjs.org/@cartesi/cli/-/cli-2.0.0-alpha.43.tgz"
+  sha256 "2ae75cd8f541b56e3dc94f4b3c8e77a0e8d8216561744a88a9705ea1f1412381"
   license "Apache-2.0"
-  revision 2
 
   livecheck do
     url "https://registry.npmjs.org/@cartesi/cli"
@@ -15,13 +14,7 @@ class Cartesi < Formula
     end
   end
 
-  bottle do
-    root_url "https://ghcr.io/v2/cartesi/tap"
-    manifest_sha256 "3f73c28aa62047e9091fd0768a4bfaacd5f6ceb84a5cc03e5ad81e003a45d0b9"
-    sha256 cellar: :any_skip_relocation, all: "f836a3138f1a2e0f757a1f63c00ce4fd1c7e9d0e6e143701f19ceef932df90a3"
-  end
-
-  # 2.0.0-alpha.42 requires cartesi-machine ^0.22.0 and runs whichever
+  # 2.0.0-alpha.43 requires cartesi-machine ^0.22.0 and runs whichever
   # `cartesi-machine` is first on PATH, so pin the keg-only 0.22 emulator and
   # put it first on PATH below instead of depending on cartesi-machine.
   depends_on "cartesi-machine-emulator@0.22"
